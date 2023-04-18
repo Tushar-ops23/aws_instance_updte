@@ -1,0 +1,13 @@
+Changing Instance Type of a Running EC2 Instance without Stopping using AWS CLI
+
+1. Connect to your AWS account using AWS CLI by running the following command:
+   aws configure
+
+2. Run the modify-instance-attribute command, specifying the instance ID of the instance you want to modify, and the new instance type you want to use. For example:
+   aws ec2 modify-instance-attribute --instance-id i-1234567890abcdef0 --instance-type t2.small
+   Replace i-1234567890abcdef0 with the actual instance ID of the instance you want to modify, and t2.small with the new instance type you want to use.
+
+3. Once the modify-instance-attribute command has completed, you can verify that the instance type has been changed using the describe-instances command. For example:
+   aws ec2 describe-instances --instance-ids i-1234567890abcdef0 --query 'Reservations[*].Instances[*].InstanceType'
+
+Please note that changing the instance type of a running instance without stopping it requires the instance to be EBS-backed and must be supported by the instance type you are changing to. Additionally, changing the instance type without stopping the instance may result in potential performance impacts or other operational considerations. It's important to thoroughly understand the implications of changing the instance type of a running instance before proceeding.
