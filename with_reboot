@@ -1,0 +1,24 @@
+Changing Instance Type of a Running EC2 Instance using AWS CLI
+
+1. Connect to your AWS account using AWS CLI by running the following command:
+   aws configure
+
+2. Stop the running instance that you want to change the instance type for. You can use the stop-instances command, specifying the instance ID of the instance you want to stop. For example:
+   aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+   Replace i-1234567890abcdef0 with the actual instance ID of the instance you want to stop.
+
+3. Wait for the instance to stop. You can use the describe-instances command to check the status of the instance and ensure that it has stopped. For example:
+   aws ec2 describe-instances --instance-ids i-1234567890abcdef0 --query 'Reservations[*].Instances[*].State.Name'
+
+4. Once the instance has stopped, you can modify the instance type using the modify-instance-attribute command, specifying the instance ID and the new instance type you want to use. For example:
+   aws ec2 modify-instance-attribute --instance-id i-1234567890abcdef0 --instance-type t2.small
+   Replace i-1234567890abcdef0 with the actual instance ID of the instance you want to modify, and t2.small with the new instance type you want to use.
+
+5. Start the instance again using the start-instances command, specifying the instance ID of the instance you modified. For example:
+   aws ec2 start-instances --instance-ids i-1234567890abcdef0
+   Replace i-1234567890abcdef0 with the actual instance ID of the instance you modified.
+
+6. Once the instance has started, you can verify that the instance type has been changed using the describe-instances command. For example:
+   aws ec2 describe-instances --instance-ids i-1234567890abcdef0 --query 'Reservations[*].Instances[*].InstanceType'
+
+Please note that changing the instance type of a running instance will result in a reboot of the instance, and the instance will be unavailable during the stop and start process. Make sure to plan for any potential downtime when changing the instance type.
